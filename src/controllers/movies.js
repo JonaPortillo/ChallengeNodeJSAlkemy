@@ -141,8 +141,8 @@ module.exports = {
                 })
                 .catch(e => console.log(e))
         } else {
-            if (req.query.idGenero) {
-                db.Genero.findByPk(req.query.idGenero, {
+            if (req.query.genre) {
+                db.Genero.findByPk(req.query.genre, {
                     include: [{ association: "pelis_series" }]
                 })
                     .then(genero => {
@@ -150,14 +150,15 @@ module.exports = {
                             return res.json({
                                 ok: true,
                                 total: genero.pelis_series.length,
-                                url: '/movies/seacrh?idGenero=' + req.query.idGenero,
+                                url: '/movies/seacrh?genre=' + req.query.genre,
+                                genero: genero.nombre,
                                 data: genero.pelis_series
                             });
                         }
                         return res.json({
                             ok: false,
                             msj: "No existe ningun género con ese ID",
-                            url: '/movies/seacrh?idGenero=' + req.query.idGenero,
+                            url: '/movies/seacrh?genre=' + req.query.genre,
                             data: []
                         });
                     })

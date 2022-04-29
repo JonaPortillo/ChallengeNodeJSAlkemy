@@ -9,7 +9,7 @@ router.get('/', isLogin, controller.list);
 router.get('/detail/:id', isLogin, controller.detail);
 router.get('/search', isLogin, controller.search);
 router.post('/create', isLogin, characterValidator, controller.create);
-router.put('/edit/:id', isLogin, characterValidator, controller.edit);
+router.put('/edit/:id', isLogin, controller.edit);
 router.delete('/delete/:id', isLogin, controller.delete);
 
 

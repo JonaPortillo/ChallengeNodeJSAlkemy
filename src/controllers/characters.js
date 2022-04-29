@@ -28,7 +28,6 @@ module.exports = {
             .then(personaje => {
                 if (personaje != null) {
                     return res.json({
-                        status: 200,
                         ok: true,
                         data: personaje,
                         url: ('/characters/detail/' + req.params.id),
@@ -76,9 +75,9 @@ module.exports = {
                     })
                     .catch(e => console.log(e))
             } else {
-                if (req.query.idMovie) {
+                if (req.query.movies) {
                     db.PeliSerie.findByPk(
-                        req.query.idMovie, {
+                        req.query.movies, {
                         include: [{ association: "personajes" }]
                     })
                         .then(pelicula => {
@@ -86,14 +85,15 @@ module.exports = {
                                 return res.json({
                                     ok: true,
                                     total: pelicula.personajes.length,
-                                    url: '/characters/seacrh?idMovie=' + req.query.idMovie,
+                                    url: `/characters/seacrh?movies=${req.query.movies}`,
+                                    pelicula: pelicula.titulo,
                                     data: pelicula.personajes
                                 });
                             }
                             return res.json({
                                 ok: false,
                                 msj: "No existe ninguna película con ese ID",
-                                url: '/characters/seacrh?idMovie=' + req.query.idMovie,
+                                url: '/characters/seacrh?idMovie=' + req.query.movies,
                                 data: []
                             });
                         })
@@ -153,7 +153,6 @@ module.exports = {
             }
         })
             .then(personaje => {
-                console.log(personaje)
                 if (personaje != 0) {
                     return res.json({
                         msg: "Personaje editado correctamente",
