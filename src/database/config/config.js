@@ -2,7 +2,7 @@ module.exports = {
   "development": {
     "username": "root",
     "password": null,
-    "database": "disney_api",
+    "database": "api_disney",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
